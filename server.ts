@@ -1,10 +1,23 @@
 import express from 'express';
 import path from 'path';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import rootRoutes from './routes/root';
-const app = express();
-const PORT = process.env.PORT || 3500;
+import { logger } from './middleware/logger';
+import errorHandler from './middleware/errorHandler';
+import corsOptions from './config/corsOptions';
 
-app.use('/', express.static(path.join(__dirname, '/public')));
+const PORT = process.env.PORT || 3500;
+const app = express();
+
+app.use(logger);
+
+app.use(cors(corsOptions));
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.use('/', rootRoutes);
 
@@ -18,5 +31,7 @@ app.all('*', (req, res) => {
     res.type('text').send('404 Not Found');
   }
 });
+
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`server running on port ${PORT}`));
