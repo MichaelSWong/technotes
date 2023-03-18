@@ -1,5 +1,5 @@
 {
-  "name": "technotes",
+  "name": "technotes-backend",
   "version": "1.0.0",
   "description": "technotes MERN Project",
   "main": "server.ts",
