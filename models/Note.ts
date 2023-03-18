@@ -1,6 +1,13 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+
+export interface INote extends Document {
+  user: string;
+  title: string;
+  text: string;
+  completed: boolean;
+}
 
 const noteSchema: Schema = new Schema(
   {
@@ -33,6 +40,6 @@ noteSchema.plugin(AutoIncrement, {
   start_seq: 500,
 });
 
-const Note = mongoose.model('Note', noteSchema);
+const Note = mongoose.model<INote>('Note', noteSchema);
 
 export default Note;

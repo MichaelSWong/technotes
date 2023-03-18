@@ -12,6 +12,7 @@ import errorHandler from './middleware/errorHandler';
 import corsOptions from './config/corsOptions';
 import connectDB from './config/dbConn';
 import userRoutes from './routes/userRoutes';
+import noteRoutes from './routes/noteRoutes';
 
 colors.enable();
 dotenv.config();
@@ -34,6 +35,7 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.use('/', rootRoutes);
 app.use('/users', userRoutes);
+app.use('/notes', noteRoutes);
 
 app.all('*', (req, res) => {
   res.status(404);

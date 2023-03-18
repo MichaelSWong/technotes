@@ -5,7 +5,7 @@ import asyncHandler from 'express-async-handler';
 import bcrypt from 'bcrypt';
 
 // @desc Get all users
-// @route Get / users
+// @route GET / users
 // @access Private
 const getAllUsers = asyncHandler(
   async (req: Request, res: Response): Promise<any> => {
@@ -18,7 +18,7 @@ const getAllUsers = asyncHandler(
 );
 
 // @desc Create new user
-// @route Post / users
+// @route POST / users
 // @access Private
 const createNewUser = asyncHandler(
   async (req: Request, res: Response): Promise<any> => {
@@ -53,7 +53,7 @@ const createNewUser = asyncHandler(
 );
 
 // @desc Update user
-// @route Patch / users
+// @route PATCH / users
 // @access Private
 const updateUser = asyncHandler(
   async (req: Request, res: Response): Promise<any> => {
@@ -98,7 +98,7 @@ const updateUser = asyncHandler(
 );
 
 // @desc Delete user
-// @route Delete / users
+// @route DELETE / users
 // @access Private
 const deleteUser = asyncHandler(
   async (req: Request, res: Response): Promise<any> => {
