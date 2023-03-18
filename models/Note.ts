@@ -1,5 +1,6 @@
-import mongoose, { Schema, Document } from 'mongoose';
-import AutoIncrement from 'mongoose-sequence';
+import mongoose, { Schema } from 'mongoose';
+
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const noteSchema: Schema = new Schema(
   {

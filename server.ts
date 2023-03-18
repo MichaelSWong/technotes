@@ -3,6 +3,7 @@ import OS from 'os';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import rootRoutes from './routes/root';
@@ -10,7 +11,7 @@ import { logger, logEvents } from './middleware/logger';
 import errorHandler from './middleware/errorHandler';
 import corsOptions from './config/corsOptions';
 import connectDB from './config/dbConn';
-import mongoose from 'mongoose';
+import userRoutes from './routes/userRoutes';
 
 colors.enable();
 dotenv.config();
@@ -32,6 +33,7 @@ const hostName = OS.hostname();
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.use('/', rootRoutes);
+app.use('/users', userRoutes);
 
 app.all('*', (req, res) => {
   res.status(404);
