@@ -1,12 +1,14 @@
 import mongoose, { Schema, Document } from 'mongoose';
-
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 export interface INote extends Document {
-  user: string;
+  user: any;
   title: string;
   text: string;
   completed: boolean;
+  inc_field?: string;
+  id?: string;
+  start_seq?: number;
 }
 
 const noteSchema: Schema = new Schema(
@@ -38,6 +40,7 @@ noteSchema.plugin(AutoIncrement, {
   inc_field: 'ticket',
   id: 'ticketNums',
   start_seq: 500,
+  disable_hooks: true,
 });
 
 const Note = mongoose.model<INote>('Note', noteSchema);

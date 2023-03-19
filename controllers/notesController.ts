@@ -3,12 +3,6 @@ import Note from '../models/Note';
 import User from '../models/User';
 import asyncHandler from 'express-async-handler';
 
-export interface IGetUserAuthInfoRequest extends Request {
-  user?: {
-    _id?: string;
-  }; // or any other type
-}
-
 //  @desc Get all notes
 // @route GET / notes
 // @access Private
@@ -37,15 +31,16 @@ const getAllNotes = asyncHandler(
 // @access Private
 
 const createNewNote = asyncHandler(
-  async (req: IGetUserAuthInfoRequest, res: Response): Promise<any> => {
+  async (req: Request, res: Response): Promise<any> => {
     const { user, title, text } = req.body;
+    console.log(user);
 
-    // Confrim Data
+    // Confirm data
     if (!user || !title || !text) {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Duplicate
+    // Check for duplicate title
     const duplicate = await Note.findOne({ title }).lean().exec();
 
     if (duplicate) {
@@ -56,9 +51,10 @@ const createNewNote = asyncHandler(
     const note = await Note.create({ user, title, text });
 
     if (note) {
-      res.status(201).json({ message: 'New note ${text} created' });
+      // Created
+      return res.status(201).json({ message: 'New note created' });
     } else {
-      res.status(400).json({ message: 'Invalid note data received' });
+      return res.status(400).json({ message: 'Invalid note data received' });
     }
   }
 );

@@ -59,6 +59,8 @@ const updateUser = asyncHandler(
   async (req: Request, res: Response): Promise<any> => {
     const { id, userName, roles, active, password } = req.body;
 
+    console.log(req.body);
+
     // Confirm data
     if (
       !id ||
@@ -82,8 +84,8 @@ const updateUser = asyncHandler(
       return res.status(409).json({ message: 'Duplicate userName' });
     }
 
-    user.userName;
-    user.roles;
+    user.userName = userName;
+    user.roles = roles;
     user.active = active;
 
     if (password) {
